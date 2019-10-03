@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Robot : MonoBehaviour
 {
+    public Animator robot;
+
     [SerializeField]
     private string robotType;
 
@@ -52,6 +54,6 @@ public class Robot : MonoBehaviour
 
     private void Fire()
     {
-        Debug.Log("Fire");
+        robot.Play("Fire");
     }
 }
