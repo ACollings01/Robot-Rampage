@@ -83,5 +83,8 @@ public class Ammo : MonoBehaviour
 
         // Decrement the given ammo reserve
         tagToAmmo[tag]--;
+
+        // Update ui with new ammo count
+        gameUI.SetAmmoText(tagToAmmo[tag]);
     }
 }

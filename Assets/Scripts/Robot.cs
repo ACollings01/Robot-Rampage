@@ -95,8 +95,11 @@ public class Robot : MonoBehaviour
             // Play the Die animation
             robot.Play("Die");
 
-            // Start the DestroyRobot coroutine
-            StartCoroutine("DestroyRobot");
+            // Start the destroyRobot coroutine
+            StartCoroutine("destroyRobot");
+
+            // Removes an enemy from enemiesLeft and updates the UI with that information
+            Game.RemoveEnemy();
 
             // Play the death sound
             GetComponent<AudioSource>().PlayOneShot(deathSound);
@@ -108,7 +111,7 @@ public class Robot : MonoBehaviour
         }
     }
 
-    IEnumerator DestroyRobot()
+    IEnumerator destroyRobot()
     {
         // Wait 1.5 seconds for the death animation then destroy the robot
         yield return new WaitForSeconds(1.5f);

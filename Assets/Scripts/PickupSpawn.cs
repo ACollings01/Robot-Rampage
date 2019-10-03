@@ -28,7 +28,7 @@ public class PickupSpawn : MonoBehaviour
         pickup.transform.parent = transform;
     }
 
-    IEnumerator RespawnPickup()
+    IEnumerator respawnPickup()
     {
         // Waits 20 seconds to spawn a new pickup
         yield return new WaitForSeconds(20);
@@ -37,6 +37,6 @@ public class PickupSpawn : MonoBehaviour
 
     public void PickupWasPickedUp()
     {
-        StartCoroutine("RespawnPickup");
+        StartCoroutine("respawnPickup");
     }
 }

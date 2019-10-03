@@ -5,6 +5,9 @@ using UnityEngine;
 public class GunEquipper : MonoBehaviour
 {
     [SerializeField]
+    Ammo ammo;
+
+    [SerializeField]
     GameUI gameUI;
 
     public static string activeWeaponType;
@@ -47,12 +50,17 @@ public class GunEquipper : MonoBehaviour
 
     private void loadWeapon(GameObject weapon)
     {
+        // Set all weapons inactive
         pistol.SetActive(false);
         assaultRifle.SetActive(false);
         shotgun.SetActive(false);
 
+        // Activate the given weapon
         weapon.SetActive(true);
         activeGun = weapon;
+
+        // Set the ammo UI element appropriately
+        gameUI.SetAmmoText(ammo.GetAmmo(activeGun.tag));
     }
 
     public GameObject GetActiveWeapon()
