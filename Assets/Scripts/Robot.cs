@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Robot : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip deathSound;
+    [SerializeField]
+    private AudioClip fireSound;
+    [SerializeField]
+    private AudioClip weakHitSound;
+
     public Animator robot;
 
     [SerializeField]
@@ -64,6 +71,9 @@ public class Robot : MonoBehaviour
 
         // Play the Fire animation
         robot.Play("Fire");
+
+        // Play the fire sound
+        GetComponent<AudioSource>().PlayOneShot(fireSound);
     }
 
     public void TakeDamage(int amount)
@@ -81,10 +91,20 @@ public class Robot : MonoBehaviour
         if (health <= 0)
         {
             isDead = true;
+
             // Play the Die animation
             robot.Play("Die");
+
             // Start the DestroyRobot coroutine
             StartCoroutine("DestroyRobot");
+
+            // Play the death sound
+            GetComponent<AudioSource>().PlayOneShot(deathSound);
+        }
+        else
+        {
+            // Play the weak hit sound
+            GetComponent<AudioSource>().PlayOneShot(weakHitSound);
         }
     }
 
