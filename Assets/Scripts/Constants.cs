@@ -23,7 +23,7 @@
 
     // Misc
     public const string Game = "Game";
-    public const float CameraDefaultZoon = 60f;
+    public const float CameraDefaultZoom = 60f;
 
     // Holds all pickups
     public static readonly int[] AllPickupTypes = new int[5]

@@ -28,4 +28,17 @@ public class Missile : MonoBehaviour
         // Destroy this missile
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // If the missile hits the player and the player gameObject is active, tell the player to take damage
+        if (collision.gameObject.GetComponent<Player>() != null
+            && collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Player>().TakeDamage(damage);
+        }
+
+        // Then destroy the missile
+        Destroy(gameObject);
+    }
 }

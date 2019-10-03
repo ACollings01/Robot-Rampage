@@ -57,9 +57,41 @@ public class Robot : MonoBehaviour
 
     private void Fire()
     {
+        // Create a new missile instance and make sure it is oriented properly
         GameObject missile = Instantiate(missilePrefab);
         missile.transform.position = missileFireSpot.transform.position;
         missile.transform.rotation = missileFireSpot.transform.rotation;
+
+        // Play the Fire animation
         robot.Play("Fire");
+    }
+
+    public void TakeDamage(int amount)
+    {
+        // Make sure the robot is alive
+        if (isDead)
+        {
+            return;
+        }
+
+        // Subract the damage taken from the robot's health
+        health -= amount;
+
+        // Check if the robot is dead
+        if (health <= 0)
+        {
+            isDead = true;
+            // Play the Die animation
+            robot.Play("Die");
+            // Start the DestroyRobot coroutine
+            StartCoroutine("DestroyRobot");
+        }
+    }
+
+    IEnumerator DestroyRobot()
+    {
+        // Wait 1.5 seconds for the death animation then destroy the robot
+        yield return new WaitForSeconds(1.5f);
+        Destroy(gameObject);
     }
 }
