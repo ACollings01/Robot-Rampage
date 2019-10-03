@@ -45,22 +45,25 @@ public class Gun : MonoBehaviour
         {
             GetComponent<AudioSource>().PlayOneShot(liveFire);
             ammo.ConsumeAmmo(tag);
+            
+            // Play the fire animation
+            GetComponentInChildren<Animator>().Play("Fire");
+
+            // Creates a ray along the camera's viewport with length of the range of the current weapon, checks if it hits anything and if it does, processes the hit
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, range))
+            {
+                processHit(hit.collider.gameObject);
+            }
         }
         else
         {
             GetComponent<AudioSource>().PlayOneShot(dryFire);
         }
 
-        // Play the fire animation
-        GetComponentInChildren<Animator>().Play("Fire");
-
-        // Creates a ray along the camera's viewport with length of the range of the current weapon, checks if it hits anything and if it does, processes the hit
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, range))
-        {
-            processHit(hit.collider.gameObject);
-        }
+        
     }
 
     private void processHit(GameObject hitObject)

@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
+
 public class Game : MonoBehaviour
 {
+    public GameObject gameOverPanel;
+
     public GameUI gameUI;
     public GameObject player;
     public int score;
@@ -105,5 +110,49 @@ public class Game : MonoBehaviour
             score += 1;
             gameUI.SetScoreText(score);
         }
+    }
+
+    public void OnGUI()
+    {
+        {
+            // If the cursor is not visible, set it to be visible upon entering the menu and lock it in that state
+            if (isGameOver && Cursor.visible == false)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;  // End the game
+        Time.timeScale = 0; // Stop time from incrementing by setting the time scale to 0
+
+        // Disable control of the character
+        player.GetComponent<FirstPersonController>().enabled = false;
+        player.GetComponent<CharacterController>().enabled = false;
+
+        // Activate the game over panel
+        gameOverPanel.SetActive(true);
+    }
+
+    // Reload the Battle scene
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(Constants.SceneBattle);
+        gameOverPanel.SetActive(false);
+    }
+
+    // Exit the game
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    // Load the main menu scene
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(Constants.SceneMenu);
     }
 }
