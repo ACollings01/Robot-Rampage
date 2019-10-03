@@ -75,6 +75,9 @@ public class Game : MonoBehaviour
     // This is called when robots are killed, decrements enemiesLeft, updates the UI and gives the player a bonus if they clear all robots before the timer runs out
     public static void RemoveEnemy()
     {
+        // Add the score for killing the enemy
+        singleton.AddRobotKillToScore();
+
         singleton.enemiesLeft--;
         singleton.gameUI.SetEnemyText(singleton.enemiesLeft);
 
